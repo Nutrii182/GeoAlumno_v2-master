@@ -1,4 +1,4 @@
-package com.example.nart1.geoalumno_v2.Activities;
+package com.example.nart1.geoalumno_v2.FireBase;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.nart1.geoalumno_v2.FireBase.Adapter_Profes;
-import com.example.nart1.geoalumno_v2.FireBase.Profesores;
 import com.example.nart1.geoalumno_v2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,9 +47,10 @@ public class Teachers_List extends AppCompatActivity{
                 for (DataSnapshot entry : dataSnapshot.getChildren()) {
 
                     Profesores profe = new Profesores();
+                    DataSnapshot foo;
 
-                    DataSnapshot foo = entry.child("Id");
-                    profe.id = foo.getValue() != null ? Integer.parseInt(foo.getValue().toString()) :  0;
+                    foo = entry.child("id");
+                    profe.id = foo.getValue() != null ? foo.getValue().toString() : "";
 
                     foo = entry.child("Nombre");
                     profe.nombre = foo.getValue() != null ? foo.getValue().toString() : "";
@@ -59,11 +58,17 @@ public class Teachers_List extends AppCompatActivity{
                     foo = entry.child("Carrera");
                     profe.carrera = foo.getValue() != null ? foo.getValue().toString() : "";
 
+                    foo = entry.child("Latitud");
+                    profe.latitud = foo.getValue() != null ? Double.parseDouble(foo.getValue().toString()) : 0;
+
+                    foo = entry.child("Longitud");
+                    profe.longitud = foo.getValue() != null ? Double.parseDouble(foo.getValue().toString()) : 0;
+
                     profesores.add(profe);
 
                 }
 
-                recyclerView.setAdapter(new Adapter_Profes(profesores));
+                recyclerView.setAdapter(new Adapter_Profes(getBaseContext(),profesores));
             }
 
             @Override
