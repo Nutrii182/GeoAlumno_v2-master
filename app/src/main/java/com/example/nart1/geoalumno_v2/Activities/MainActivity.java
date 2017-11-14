@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent intent = new Intent (this, MainActivity.class);
         final Intent intent2 = new Intent (this, Teachers_List.class);
-        //final Intent intent3 = new Intent(this, MapsActivity.class);
+        final Intent intent3 = new Intent(this, MapsActivity.class);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.mapa:
-                        //startActivity(intent3);
+                        startActivity(intent3);
                 }
 
                 return false;

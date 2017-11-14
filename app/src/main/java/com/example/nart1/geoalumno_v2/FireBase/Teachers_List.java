@@ -1,11 +1,14 @@
 package com.example.nart1.geoalumno_v2.FireBase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.nart1.geoalumno_v2.Activities.MapsActivity;
+import com.example.nart1.geoalumno_v2.Coordinate;
 import com.example.nart1.geoalumno_v2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,9 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Teachers_List extends AppCompatActivity{
+public class Teachers_List extends AppCompatActivity implements Coordinate{
 
     RecyclerView recyclerView;
+    public static Profesores profe;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference();
 
@@ -46,7 +50,7 @@ public class Teachers_List extends AppCompatActivity{
 
                 for (DataSnapshot entry : dataSnapshot.getChildren()) {
 
-                    Profesores profe = new Profesores();
+                    profe = new Profesores();
                     DataSnapshot foo;
 
                     foo = entry.child("id");
@@ -68,11 +72,25 @@ public class Teachers_List extends AppCompatActivity{
 
                 }
 
-                recyclerView.setAdapter(new Adapter_Profes(getBaseContext(),profesores));
+                metodo(profesores);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    public void metodo(ArrayList<Profesores> pro){
+
+        recyclerView.setAdapter(new Adapter_Profes(pro,this));
+    }
+
+    @Override
+    public void onIconItemSelected(double Latitud, double Longitud) {
+
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("KEY_LATITUD",19.16559);
+        intent.putExtra("KEY_LONGITUD",-96.114725);
+        startActivity(intent);
     }
 }

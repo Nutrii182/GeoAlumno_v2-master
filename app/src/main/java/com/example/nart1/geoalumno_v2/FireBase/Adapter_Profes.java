@@ -1,29 +1,25 @@
 package com.example.nart1.geoalumno_v2.FireBase;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.nart1.geoalumno_v2.Activities.MapsActivity;
+import com.example.nart1.geoalumno_v2.Coordinate;
 import com.example.nart1.geoalumno_v2.R;
 
 import java.util.ArrayList;
 
 public class Adapter_Profes extends RecyclerView.Adapter<Adapter_Profes.ProfesViewHolder>{
 
+    private final Coordinate coordinate;
     private ArrayList<Profesores> profes;
-    private Context context;
-    public static final double[] lat = {0};
-    public static final double[] longi = {0};
 
-    public Adapter_Profes(Context ctx,ArrayList<Profesores> p) {
+    public Adapter_Profes(ArrayList<Profesores> p, Coordinate coordinate) {
 
-        profes = p;
-        context = ctx;
+        this.profes = p;
+        this.coordinate = coordinate;
     }
 
     public ProfesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,21 +28,19 @@ public class Adapter_Profes extends RecyclerView.Adapter<Adapter_Profes.ProfesVi
     }
 
     @Override
-    public void onBindViewHolder(ProfesViewHolder holder, int position) {
+    public void onBindViewHolder(ProfesViewHolder holder, final int position) {
 
         final Profesores profe = profes.get(position);
         holder.setData (profe.nombre,profe.carrera);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double lat=0,longi=0;
 
-                final Intent intent = new Intent(context, MapsActivity.class);
+                lat = profes.get(position).latitud;
+                longi = profes.get(position).longitud;
 
-                context.startActivity(intent);
-                /*Intent intentmap = new Intent(v.getContext(), MapsActivity.class);
-                context.startActivity(intentmap);
-                // lat[0] = profe.latitud;
-                //longi[0] = profe.longitud;*/
+                coordinate.onIconItemSelected(lat,longi);
 
             }
         });
