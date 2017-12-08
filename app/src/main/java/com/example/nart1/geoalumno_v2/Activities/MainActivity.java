@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.example.nart1.geoalumno_v2.FireBase.Teachers_List;
 import com.example.nart1.geoalumno_v2.R;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.annotation.Nonnull;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
         final Intent intent2 = new Intent (this, Teachers_List.class);
         final Intent intent3 = new Intent(this, MapsActivity.class);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("notificacion");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -75,7 +80,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }

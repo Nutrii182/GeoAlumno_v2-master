@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.nart1.geoalumno_v2.Coordinate;
 import com.example.nart1.geoalumno_v2.R;
 
@@ -15,6 +14,7 @@ public class Adapter_Profes extends RecyclerView.Adapter<Adapter_Profes.ProfesVi
 
     private final Coordinate coordinate;
     private ArrayList<Profesores> profes;
+    public static double lat=0,longi=0;
 
     public Adapter_Profes(ArrayList<Profesores> p, Coordinate coordinate) {
 
@@ -35,7 +35,6 @@ public class Adapter_Profes extends RecyclerView.Adapter<Adapter_Profes.ProfesVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lat=0,longi=0;
 
                 lat = profes.get(position).latitud;
                 longi = profes.get(position).longitud;

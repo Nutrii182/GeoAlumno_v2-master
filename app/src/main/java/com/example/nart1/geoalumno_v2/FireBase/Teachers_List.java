@@ -89,8 +89,6 @@ public class Teachers_List extends AppCompatActivity implements Coordinate{
     public void onIconItemSelected(double Latitud, double Longitud) {
 
         Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("KEY_LATITUD",19.16559);
-        intent.putExtra("KEY_LONGITUD",-96.114725);
         startActivity(intent);
     }
 }
